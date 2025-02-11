@@ -5,6 +5,13 @@
     box-sizing: border-box;
 }
 
+/* Set up flexbox on the body to ensure the footer sticks to the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
 /* Red banners */
 header, footer {
     background-color: red;
@@ -30,6 +37,8 @@ header button {
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 50%; /* Make the button round */
+    border: none;
 }
 
 /* Pokémon data container */
@@ -69,8 +78,26 @@ header button {
     font-size: 18px;
 }
 
+/* Clear Data Button */
+#clearData {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f44336; /* Red background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#clearData:hover {
+    background-color: #e53935;
+}
+
 /* Bottom banner (footer text) */
 footer {
     font-size: 14px;
     padding: 20px;
+    margin-top: auto; /* Pushes footer to the bottom */
 }
