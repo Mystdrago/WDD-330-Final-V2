@@ -1,0 +1,76 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Red banners */
+header, footer {
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Top banner (Search bar) */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+header button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Pokémon data container */
+#pokemonData {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+}
+
+#pokemonData img {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+/* Pokémon data text */
+#pokemonData h2 {
+    margin-left: 140px; /* Space for the image */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#pokemonData p {
+    margin-left: 140px;
+    font-size: 18px;
+}
+
+/* Bottom banner (footer text) */
+footer {
+    font-size: 14px;
+    padding: 20px;
+}
