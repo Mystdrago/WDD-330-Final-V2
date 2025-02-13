@@ -1,59 +1,70 @@
-// Generate a random Pokémon ID between 1 and 1010 (as per Pokédex)
-function getRandomPokemonId() {
-    return Math.floor(Math.random() * 1010) + 1;
-}
-
-// Fetch and display Pokémon data using a random ID
-async function fetchPokemonById(id) {
-    const apiUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
-
+// Fetch and display Pokémon data including sprite and abilities
+async function fetchPokemon() {
+    const randomId = Math.floor(Math.random() * 898) + 1; // Pokémon IDs range from 1 to 898
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon/${randomId}`;
+    
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) throw new Error("Pokémon not found");
 
         const data = await response.json();
+        const abilities = data.abilities.map(a => a.ability.name).join(", ");
         const pokemon = {
             name: data.name,
             id: data.id,
             height: data.height,
             weight: data.weight,
             types: data.types.map(t => t.type.name),
+            abilities: abilities,
             sprite: data.sprites.front_default
         };
 
-        // Send data to backend to save as the most recent Pokémon
-        await fetch("http://localhost:3000/pokemon", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(pokemon)
-        });
-
-        // Display the Pokémon
+        // Save the latest Pokémon in localStorage
+        saveToLocalStorage(pokemon);
         displayPokemon(pokemon);
     } catch (error) {
         document.getElementById("pokemonData").innerHTML = "<p>Pokémon not found</p>";
     }
 }
 
-// Display Pokémon data including sprite
+// Display Pokémon data including sprite and abilities
 function displayPokemon(data) {
     document.getElementById("pokemonData").innerHTML = `
         <h2>${data.name.toUpperCase()}</h2>
-        <img src="${data.sprite}" alt="${data.name}" />
+        <img src="${data.sprite}" alt="${data.name}" class="pokemon-image"/>
         <p>Type: ${data.types.join(', ')}</p>
         <p>Height: ${data.height}</p>
         <p>Weight: ${data.weight}</p>
+        <p>Abilities: ${data.abilities}</p>
     `;
 }
 
-// Event listener for the "Get Random Pokémon" button
-document.getElementById("randomButton").addEventListener("click", () => {
-    const randomId = getRandomPokemonId();
-    fetchPokemonById(randomId);
+// Save Pokémon to localStorage and maintain last 3 searches
+function saveToLocalStorage(pokemon) {
+    let history = JSON.parse(localStorage.getItem("pokemonHistory")) || [];
+    history.unshift(pokemon);
+    if (history.length > 3) history.pop(); // Keep only the last 3 Pokémon
+    localStorage.setItem("pokemonHistory", JSON.stringify(history));
+}
+
+// Load last Pokémon on page load
+document.addEventListener("DOMContentLoaded", fetchPokemon);
+
+// Button to fetch a new random Pokémon
+document.getElementById("searchButton").addEventListener("click", fetchPokemon);
+
+// Hover event to highlight Pokémon data
+document.getElementById("pokemonData").addEventListener("mouseover", () => {
+    document.getElementById("pokemonData").classList.add("hover-highlight");
 });
 
-// Load a random Pokémon when the page loads
-document.addEventListener("DOMContentLoaded", () => {
-    const randomId = getRandomPokemonId();
-    fetchPokemonById(randomId);
+document.getElementById("pokemonData").addEventListener("mouseleave", () => {
+    document.getElementById("pokemonData").classList.remove("hover-highlight");
+});
+
+// Keyboard event to fetch a Pokémon when spacebar is pressed
+document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+        fetchPokemon();
+    }
 });
