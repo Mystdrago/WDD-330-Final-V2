@@ -57,11 +57,3 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomId = getRandomPokemonId();
     fetchPokemonById(randomId);
 });
-
-// Event listener for the "Clear Data" button
-document.getElementById("clearData").addEventListener("click", async () => {
-    await fetch("http://localhost:3000/pokemon", { method: "DELETE" });
-
-    // Clear the displayed Pokémon
-    document.getElementById("pokemonData").innerHTML = "<p>Pokémon data cleared.</p>";
-});
