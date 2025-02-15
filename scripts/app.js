@@ -63,7 +63,7 @@ function displayMultiplePokemon(pokemonList) {
     });
 }
 
-// Attach event listener to the correct button
+// Attach event listener to the button
 document.getElementById("randomButton").addEventListener("click", fetchMultiplePokemon);
 
 // Load 10 Pokémon on page load
