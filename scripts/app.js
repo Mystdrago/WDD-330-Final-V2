@@ -1,15 +1,20 @@
 // Fetch and display 10 random Pokémon
 async function fetchMultiplePokemon() {
     const pokemonArray = [];
+    const promises = []; // Store promises to fetch multiple Pokémon in parallel
+
     for (let i = 0; i < 10; i++) {
         const randomId = Math.floor(Math.random() * 898) + 1; // Pokémon IDs range from 1 to 898
         const apiUrl = `https://pokeapi.co/api/v2/pokemon/${randomId}`;
         
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error("Pokémon not found");
+        // Fetch Pokémon data asynchronously
+        promises.push(fetch(apiUrl).then(response => response.json()));
+    }
 
-            const data = await response.json();
+    try {
+        const results = await Promise.all(promises); // Wait for all fetch calls
+
+        results.forEach(data => {
             const abilities = data.abilities.map(a => a.ability.name).join(", ");
             const stats = data.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join("<br>");
             
@@ -27,11 +32,12 @@ async function fetchMultiplePokemon() {
             };
 
             pokemonArray.push(pokemon);
-        } catch (error) {
-            console.error("Error fetching Pokémon:", error);
-        }
+        });
+
+        displayMultiplePokemon(pokemonArray);
+    } catch (error) {
+        console.error("Error fetching Pokémon:", error);
     }
-    displayMultiplePokemon(pokemonArray);
 }
 
 // Display multiple Pokémon in the DOM
