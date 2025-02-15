@@ -11,18 +11,21 @@ async function fetchMultiplePokemon() {
 
             const data = await response.json();
             const abilities = data.abilities.map(a => a.ability.name).join(", ");
+            const stats = data.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join("<br>");
+            
             const pokemon = {
                 name: data.name,
                 id: data.id,
                 height: data.height,
                 weight: data.weight,
-                types: data.types.map(t => t.type.name),
+                types: data.types.map(t => t.type.name).join(", "),
                 abilities: abilities,
                 sprite: data.sprites.front_default,
-                base_experience: data.base_experience, // Additional attribute
-                moves: data.moves.length, // Number of available moves
-                stats: data.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(", ") // Stats
+                base_experience: data.base_experience,
+                moves: data.moves.length,
+                stats: stats
             };
+
             pokemonArray.push(pokemon);
         } catch (error) {
             console.error("Error fetching Pokémon:", error);
@@ -42,13 +45,13 @@ function displayMultiplePokemon(pokemonList) {
         pokemonDiv.innerHTML = `
             <h2>${pokemon.name.toUpperCase()} (#${pokemon.id})</h2>
             <img src="${pokemon.sprite}" alt="${pokemon.name}" class="pokemon-image"/>
-            <p>Type: ${pokemon.types.join(', ')}</p>
-            <p>Height: ${pokemon.height}</p>
-            <p>Weight: ${pokemon.weight}</p>
-            <p>Abilities: ${pokemon.abilities}</p>
-            <p>Base Experience: ${pokemon.base_experience}</p>
-            <p>Available Moves: ${pokemon.moves}</p>
-            <p>Stats: ${pokemon.stats}</p>
+            <p><strong>Type:</strong> ${pokemon.types}</p>
+            <p><strong>Height:</strong> ${pokemon.height}</p>
+            <p><strong>Weight:</strong> ${pokemon.weight}</p>
+            <p><strong>Abilities:</strong> ${pokemon.abilities}</p>
+            <p><strong>Base Experience:</strong> ${pokemon.base_experience}</p>
+            <p><strong>Available Moves:</strong> ${pokemon.moves}</p>
+            <p><strong>Stats:</strong> <br>${pokemon.stats}</p>
         `;
         container.appendChild(pokemonDiv);
     });
