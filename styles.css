@@ -1,6 +1,6 @@
 /* Top Red Banner */
 header {
-    background-color: #d32f2f; /* Red */
+    color: #d32f2f; /* Red */
     padding: 15px;
     text-align: center;
 }
@@ -51,8 +51,7 @@ header {
 
 /* Bottom Red Banner (Footer) */
 footer {
-    background-color: #d32f2f; /* Red */
-    color: white;
+    color: #d32f2f; /* Red */
     text-align: center;
     padding: 15px;
     position: fixed;
