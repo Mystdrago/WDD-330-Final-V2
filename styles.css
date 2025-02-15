@@ -1,85 +1,51 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Set up flexbox on the body to ensure the footer sticks to the bottom */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the body takes full height */
-}
-
-/* Red banners */
-header, footer {
-    background-color: red;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}
-
-/* Top banner (Search bar) */
-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-header input[type="text"] {
-    padding: 8px;
-    margin-right: 10px;
-    font-size: 16px;
-}
-
-header button {
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 50%; /* Make the button round */
-    border: none;
-}
-
-/* Pokémon data container */
+/* Container for multiple Pokémon */
 #pokemonData {
     display: flex;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    margin: 20px;
     padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    position: relative;
-    width: 80%;
-    max-width: 800px;
 }
 
-#pokemonData img {
+/* Individual Pokémon cards */
+.pokemon-card {
+    width: 250px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+}
+
+/* Pokémon sprite */
+.pokemon-card img {
     width: 100px;
     height: 100px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    border: 2px solid #ccc;
     border-radius: 10px;
+    border: 2px solid #ccc;
 }
 
-/* Pokémon data text */
-#pokemonData h2 {
-    margin-left: 140px; /* Space for the image */
-    font-size: 24px;
+/* Pokémon name */
+.pokemon-card h2 {
+    font-size: 20px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-#pokemonData p {
-    margin-left: 140px;
-    font-size: 18px;
+/* Pokémon details */
+.pokemon-card p {
+    font-size: 14px;
+    margin: 5px 0;
 }
 
-/* Clear Data Button */
-#clearData {
+/* Random Button */
+#randomButton {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -89,15 +55,17 @@ header button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-#clearData:hover {
+#randomButton:hover {
     background-color: #e53935;
 }
 
-/* Bottom banner (footer text) */
+/* Footer */
 footer {
     font-size: 14px;
     padding: 20px;
-    margin-top: auto; /* Pushes footer to the bottom */
+    text-align: center;
+    margin-top: auto;
 }
