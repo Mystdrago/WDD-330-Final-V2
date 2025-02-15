@@ -1,6 +1,7 @@
 /* Container for multiple Pokémon */
 #pokemonData {
     display: flex;
+    flex-grow: 1;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
@@ -62,11 +63,12 @@
     background-color: #e53935;
 }
 
-/* Footer */
+/* Fix Footer at the Bottom */
 footer {
-    background-color: #e53935;
-    font-size: 14px;
-    padding: 20px;
+    background-color: #d32f2f; /* Red */
+    color: white; /* White text */
     text-align: center;
-    margin-top: auto;
+    padding: 15px;
+    width: 100%;
+    position: relative; /* Changed from fixed to relative */
 }
